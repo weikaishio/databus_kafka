@@ -1,7 +1,7 @@
 package tidb
 
 import (
-	"github.com/mkideal/log"
+	"github.com/weikaishio/databus_kafka/common/log_b"
 	"github.com/weikaishio/databus_kafka/common/net/netutil/breaker"
 	"github.com/weikaishio/databus_kafka/common/stat"
 	"github.com/weikaishio/databus_kafka/common/time"

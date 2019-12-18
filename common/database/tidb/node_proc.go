@@ -3,7 +3,7 @@ package tidb
 import (
 	"time"
 
-	"github.com/mkideal/log"
+	"github.com/weikaishio/databus_kafka/common/log_b"
 )
 
 func (db *DB) nodeproc(e <-chan struct{}) {

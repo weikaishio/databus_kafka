@@ -12,7 +12,7 @@ import (
 	"time"
 
 	cmcd "github.com/weikaishio/databus_kafka/common/ecode"
-	"github.com/mkideal/log"
+	"github.com/weikaishio/databus_kafka/common/log_b"
 	xhttp "github.com/weikaishio/databus_kafka/common/net/http/blademaster"
 	xtime "github.com/weikaishio/databus_kafka/common/time"
 )

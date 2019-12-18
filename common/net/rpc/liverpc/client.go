@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"github.com/weikaishio/databus_kafka/common/conf/env"
-	"github.com/mkideal/log"
+	"github.com/weikaishio/databus_kafka/common/log_b"
 	"github.com/weikaishio/databus_kafka/common/naming"
 	"github.com/weikaishio/databus_kafka/common/naming/discovery"
 	"github.com/weikaishio/databus_kafka/common/net/metadata"

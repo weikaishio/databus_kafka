@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"sync/atomic"
 
-	"github.com/mkideal/log"
+	"github.com/weikaishio/databus_kafka/common/log_b"
 	bm "github.com/weikaishio/databus_kafka/common/net/http/blademaster"
 
 	"golang.org/x/time/rate"

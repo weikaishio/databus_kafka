@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/mkideal/log"
+	"github.com/weikaishio/databus_kafka/common/log_b"
 	"github.com/weikaishio/databus_kafka/common/queue/databus"
 	"github.com/weikaishio/databus_kafka/common/sync/errgroup"
 	xtime "github.com/weikaishio/databus_kafka/common/time"

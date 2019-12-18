@@ -10,7 +10,7 @@ import (
 	"sync"
 
 	"github.com/weikaishio/databus_kafka/common/conf/env"
-	"github.com/mkideal/log"
+	"github.com/weikaishio/databus_kafka/common/log_b"
 	"github.com/weikaishio/databus_kafka/common/naming"
 	wmeta "github.com/weikaishio/databus_kafka/common/net/rpc/warden/metadata"
 

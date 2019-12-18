@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mkideal/log"
+	"github.com/weikaishio/databus_kafka/common/log_b"
 )
 
 const (

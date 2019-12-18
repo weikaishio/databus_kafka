@@ -2,7 +2,7 @@ package cpu
 
 import (
 	"fmt"
-	"github.com/mkideal/log"
+	"github.com/weikaishio/databus_kafka/common/log_b"
 	"sync/atomic"
 	"time"
 )

@@ -22,7 +22,7 @@ import (
 	"github.com/weikaishio/databus_kafka/common/stat/prom"
 	xtime "github.com/weikaishio/databus_kafka/common/time"
 
-	"github.com/mkideal/log"
+	"github.com/weikaishio/databus_kafka/common/log_b"
 )
 
 const (

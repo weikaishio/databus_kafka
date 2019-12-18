@@ -9,7 +9,7 @@ import (
 	"github.com/weikaishio/databus_kafka/common/ecode"
 	"github.com/weikaishio/databus_kafka/common/stat/summary"
 
-	"github.com/mkideal/log"
+	"github.com/weikaishio/databus_kafka/common/log_b"
 )
 
 // sreBreaker is a sre CircuitBreaker pattern.

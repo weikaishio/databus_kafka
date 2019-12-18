@@ -11,7 +11,7 @@ import (
 	"time"
 
 	"github.com/weikaishio/databus_kafka/common/conf/dsn"
-	"github.com/mkideal/log"
+	"github.com/weikaishio/databus_kafka/common/log_b"
 	nmd "github.com/weikaishio/databus_kafka/common/net/metadata"
 	"github.com/weikaishio/databus_kafka/common/net/trace"
 	xtime "github.com/weikaishio/databus_kafka/common/time"

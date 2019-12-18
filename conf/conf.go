@@ -40,7 +40,7 @@ type Kafka struct {
 }
 
 func init() {
-	flag.StringVar(&confPath, "conf", "/Users/wangjiangang/beta/workspace/golang/src/github.com/weikaishio/databus_kafka/common/cmd/databus-test.toml", "config path")
+	flag.StringVar(&confPath, "conf", "./databus-test.toml", "config path")
 }
 
 //Init int config

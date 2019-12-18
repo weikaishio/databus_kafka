@@ -8,7 +8,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/mkideal/log"
+	"github.com/weikaishio/databus_kafka/common/log_b"
 	nmd "github.com/weikaishio/databus_kafka/common/net/metadata"
 	wmeta "github.com/weikaishio/databus_kafka/common/net/rpc/warden/metadata"
 	"github.com/weikaishio/databus_kafka/common/stat/summary"

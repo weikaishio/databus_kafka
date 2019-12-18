@@ -21,7 +21,7 @@ import (
 	xhttp "net/http"
 
 	"github.com/weikaishio/databus_kafka/common/conf/env"
-	"github.com/mkideal/log"
+	"github.com/weikaishio/databus_kafka/common/log_b"
 	"github.com/weikaishio/databus_kafka/common/net/metadata"
 	"github.com/weikaishio/databus_kafka/common/net/netutil/breaker"
 	"github.com/weikaishio/databus_kafka/common/stat"

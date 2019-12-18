@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/weikaishio/databus_kafka/common/cache/memcache"
-	"github.com/mkideal/log"
+	"github.com/weikaishio/databus_kafka/common/log_b"
 )
 
 // Memcache represents the cache with memcached persistence

@@ -53,14 +53,15 @@ CREATE TABLE `app2` (44
 
 1、监听端口，auth，拿到cluster,topic等
 2、接收cmd，执行pub or sub 然后写入
-没意义。。。 取队列数据校验权限，然后通过长链来取数据
-才用redis协议收发命令，x，好方式啊。。
+取队列数据校验权限，然后通过长链来取数据
+用redis协议收发命令，x，好方式啊。。
 redis-cli -h 127.0.0.1 -p 6205
 
 比如app/admin/main/member/dao/member.go
 func (d *Dao) PubExpMsg(ctx context.Context, msg *model.AddExpMsg) error {
 	return d.expMsgDatabus.Send(ctx, strconv.FormatInt(msg.Mid, 10), msg)
 }
+log?
 */
 func main() {
 	flag.Parse()

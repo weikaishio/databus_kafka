@@ -14,7 +14,7 @@ import (
 	"time"
 
 	"github.com/weikaishio/databus_kafka/common/conf/dsn"
-	"github.com/mkideal/log"
+	"github.com/weikaishio/databus_kafka/common/log_b"
 	"github.com/weikaishio/databus_kafka/common/net/ip"
 	"github.com/weikaishio/databus_kafka/common/net/metadata"
 	"github.com/weikaishio/databus_kafka/common/stat"

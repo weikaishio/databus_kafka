@@ -5,7 +5,7 @@ import (
 	"github.com/weikaishio/databus_kafka/common/stat"
 	"github.com/weikaishio/databus_kafka/common/time"
 
-	"github.com/mkideal/log"
+	"github.com/weikaishio/databus_kafka/common/log_b"
 
 	// database driver
 	_ "github.com/go-sql-driver/mysql"

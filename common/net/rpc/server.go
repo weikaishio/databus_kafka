@@ -21,7 +21,7 @@ import (
 
 	"github.com/weikaishio/databus_kafka/common/conf/dsn"
 	"github.com/weikaishio/databus_kafka/common/conf/env"
-	xlog "github.com/mkideal/log"
+	xlog "github.com/weikaishio/databus_kafka/common/log_b"
 	"github.com/weikaishio/databus_kafka/common/net/metadata"
 	"github.com/weikaishio/databus_kafka/common/net/rpc/context"
 	"github.com/weikaishio/databus_kafka/common/net/rpc/interceptor"

@@ -7,7 +7,7 @@ import (
 	"runtime"
 
 	"github.com/weikaishio/databus_kafka/common/ecode"
-	"github.com/mkideal/log"
+	"github.com/weikaishio/databus_kafka/common/log_b"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"

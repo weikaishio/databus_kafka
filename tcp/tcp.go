@@ -15,7 +15,7 @@ import (
 
 	"github.com/weikaishio/databus_kafka/service"
 
-	"github.com/mkideal/log"
+	"github.com/weikaishio/databus_kafka/common/log_b"
 
 	"github.com/Shopify/sarama"
 	metrics "github.com/rcrowley/go-metrics"

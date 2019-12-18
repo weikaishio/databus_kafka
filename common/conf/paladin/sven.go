@@ -16,7 +16,7 @@ import (
 
 	"github.com/weikaishio/databus_kafka/common/conf/env"
 	"github.com/weikaishio/databus_kafka/common/ecode"
-	"github.com/mkideal/log"
+	"github.com/weikaishio/databus_kafka/common/log_b"
 	xip "github.com/weikaishio/databus_kafka/common/net/ip"
 	"github.com/weikaishio/databus_kafka/common/net/netutil"
 

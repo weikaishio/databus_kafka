@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"github.com/weikaishio/databus_kafka/common/ecode"
-	"github.com/mkideal/log"
+	"github.com/weikaishio/databus_kafka/common/log_b"
 	"github.com/weikaishio/databus_kafka/common/net/rpc/context"
 	"github.com/weikaishio/databus_kafka/common/stat"
 

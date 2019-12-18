@@ -14,7 +14,7 @@ import (
 	"github.com/weikaishio/databus_kafka/common/queue/databus"
 
 	//"github.com/weikaishio/databus_kafka/common/conf/env"
-	"github.com/mkideal/log"
+	"github.com/weikaishio/databus_kafka/common/log_b"
 
 	"github.com/Shopify/sarama"
 	cluster "github.com/bsm/sarama-cluster"

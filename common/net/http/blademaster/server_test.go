@@ -21,7 +21,7 @@ import (
 	"time"
 
 	"github.com/weikaishio/databus_kafka/common/ecode"
-	"github.com/mkideal/log"
+	"github.com/weikaishio/databus_kafka/common/log_b"
 	"github.com/weikaishio/databus_kafka/common/net/http/blademaster/binding"
 	"github.com/weikaishio/databus_kafka/common/net/http/blademaster/render"
 	"github.com/weikaishio/databus_kafka/common/net/http/blademaster/tests"

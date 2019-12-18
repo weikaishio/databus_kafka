@@ -10,7 +10,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/mkideal/log"
+	"github.com/weikaishio/databus_kafka/common/log_b"
 	bm "github.com/weikaishio/databus_kafka/common/net/http/blademaster"
 	"github.com/weikaishio/databus_kafka/common/net/metadata"
 	"github.com/weikaishio/databus_kafka/common/net/netutil/breaker"

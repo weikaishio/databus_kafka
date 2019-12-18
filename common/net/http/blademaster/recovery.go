@@ -6,7 +6,7 @@ import (
 	"os"
 	"runtime"
 
-	"github.com/mkideal/log"
+	"github.com/weikaishio/databus_kafka/common/log_b"
 )
 
 // Recovery returns a middleware that recovers from any panics and writes a 500 if there was one.

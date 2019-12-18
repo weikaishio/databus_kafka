@@ -11,7 +11,7 @@ import (
 
 	"github.com/weikaishio/databus_kafka/common/ecode"
 	epb "github.com/weikaishio/databus_kafka/common/ecode/pb"
-	"github.com/mkideal/log"
+	"github.com/weikaishio/databus_kafka/common/log_b"
 	"github.com/weikaishio/databus_kafka/common/net/rpc/warden"
 	pb "github.com/weikaishio/databus_kafka/common/net/rpc/warden/proto/testproto"
 	xtime "github.com/weikaishio/databus_kafka/common/time"

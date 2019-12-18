@@ -6,7 +6,7 @@ import (
 
 	"github.com/weikaishio/databus_kafka/common/cache/redis"
 	"github.com/weikaishio/databus_kafka/common/ecode"
-	"github.com/mkideal/log"
+	"github.com/weikaishio/databus_kafka/common/log_b"
 	bm "github.com/weikaishio/databus_kafka/common/net/http/blademaster"
 
 	"github.com/pkg/errors"
