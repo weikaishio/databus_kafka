@@ -26,7 +26,7 @@ const (
 )
 
 var (
-	_defaultHost             = "http://api.bilibili.co"
+	_defaultHost             = "http://api.domain.co"
 	_pathUpload              = "/x/internal/upload"
 	_pathGenWatermark        = "/x/internal/image/gen"
 	_defaultHTTPClientConfig = &xhttp.ClientConfig{

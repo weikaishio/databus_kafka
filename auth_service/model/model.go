@@ -23,7 +23,7 @@ var (
 	errSecret = errors.New("error secret")
 )
 
-// Auth databus auth info accordance with table:bilibili_databus_v2.auth
+// Auth databus auth info accordance with table:domain_databus_v2.auth
 type Auth struct {
 	Group     string
 	Topic     string

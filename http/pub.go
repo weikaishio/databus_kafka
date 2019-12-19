@@ -33,7 +33,7 @@ type OffsetMsg struct {
 // 实现 kafka http 发布接口。
 //
 // POST /databus/pub?topic=test&group=foo&color=purple HTTP/1.1
-// Host: databus.bilibili.co
+// Host: databus.domain.co
 // Authorization: Basic Zm9vOmJhcg==
 // Content-Type: application/json
 //

@@ -1,9 +1,6 @@
 # This is a TOML document. Boom.
 
-version = "3.0.0"
-user = "nobody"
-dir = "./"
-perf = "0.0.0.0:6204"
+version = "0.1.0"
 
 addr = "0.0.0.0:6205"
 

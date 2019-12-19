@@ -35,7 +35,7 @@ type Config struct {
 }
 
 var _defaultConfig = &Config{
-	OpenServiceHost: "http://open.bilibili.co",
+	OpenServiceHost: "http://open.domain.co",
 	HTTPClient: &bm.ClientConfig{
 		App: &bm.App{
 			Key:    "53e2fa226f5ad348",

@@ -16,11 +16,11 @@ import (
 )
 
 var c = &discovery.Config{
-	Nodes:  []string{"api.bilibili.co"},
+	Nodes:  []string{"api.domain.co"},
 	Zone:   "sh001",
 	Env:    "test",
-	Key:    "0c4b8fe3ff35a4b6",
-	Secret: "b370880d1aca7d3a289b9b9a7f4d6812",
+	Key:    "Key",
+	Secret: "Secret",
 	Host:   "host_1",
 }
 

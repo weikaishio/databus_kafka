@@ -1,5 +1,5 @@
 # 基于kafka封装的消息队列, changed from go-common(b~i~l~i~b~i~l~i)
-## 说明
+## 说明~仅供学习和借鉴
 * 服务启动后，会监听配置的端口，等待生产或消费client连接;
 * client连接上后用redis协议认证auth
 * 认证成功后，通过认证串里包含的信息来连接kafka集群（使用库github.com/Shopify/sarama），使用对应的topic和groupname
@@ -45,17 +45,17 @@ INSERT INTO `auth` (`id`,`app_id`,`group_name`,`operation`,`topic`) VALUES (1,1,
 * 无特别处理
 
 ## 使用
-### 启动 databus_kafka/cmd 服务
+### 启动 example_svr/cmd 服务
 * 注意目录下的toml文件，需要配置上cluster、addr、mysql配置节不能少
 
-### 用redis-cli测试
-* 连接(比如在本地运行):redis-cli -h 127.0.0.1 -p 6205
-* 用生产者身份认证：auth app_key1:app_secret1@group_name1/topic=test156&role=pub
-* 测试连通性：ping
-* 生产消息：set 1 "xx"  - 用引号的原因是json反序列化所用
-* 用消费者身份认证：auth app_key1:app_secret1@group_name1/topic=test156&role=sub
-* 消费消息 mget pb  - 如果没有消息会block一段时间，pb意思是返回protobuf序列化的数据
-* 注意：消费者执行set命令则是提交offset
+### 可以用redis-cli测试
+* 连接(比如在本地运行) e.g. redis-cli -h 127.0.0.1 -p 6205
+* 用生产者身份认证 auth命令 e.g. auth app_key1:app_secret1@group_name1/topic=test156&role=pub
+* 测试连通性：ping命令
+* 生产消息：set命令 e.g. set x "xx"  注：第一个参数x没意义，只用第二个，用引号的原因是json反序列化所用
+* 用消费者身份认证：auth命令 e.g. app_key1:app_secret1@group_name1/topic=test156&role=sub
+* 消费消息 mget命令 e.g. mget pb  注：如果没有消息会block一段时间，pb意思是返回protobuf序列化的数据
+* 消费者执行set命令则是提交offset e.g. set 1 1 表示针对partion=1的设置offset=1
 
 ### 用example_cli测试
 * example_cli目录有测试配置，配上认证数据即可

@@ -71,7 +71,7 @@ type (
 )
 
 var (
-	_defaultHost = "http://manager.bilibili.co"
+	_defaultHost = "http://manager.domain.co"
 	_pathQuery   = "/x/admin/search/query"
 	_pathUpsert  = "/x/admin/search/upsert"
 

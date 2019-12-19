@@ -57,8 +57,8 @@ HTTP server
 
 operationName 设置:
 
-- 非 restful API 的应用使用 URL path 部分 例如 URL http://api.bilibili.co/x/internal/user/info?mid=123 operationName 为 /x/internal/user/info
-- restful API 的使用路由定义，使用 {} 代替可变部分, 例如 URL http://api.bilibili.co/x/internal/user/info/123 其中 123 为 mid，则 operationName 设置为 /x/internal/user/info/{mid}
+- 非 restful API 的应用使用 URL path 部分 例如 URL http://api.domain.co/x/internal/user/info?mid=123 operationName 为 /x/internal/user/info
+- restful API 的使用路由定义，使用 {} 代替可变部分, 例如 URL http://api.domain.co/x/internal/user/info/123 其中 123 为 mid，则 operationName 设置为 /x/internal/user/info/{mid}
 
 | 名称      | 类型   | 备注                                       |
 |-----------|--------|--------------------------------------------|

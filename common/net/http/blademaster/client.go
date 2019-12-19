@@ -51,7 +51,7 @@ func init() {
 	}
 }
 
-// App bilibili intranet authorization.
+// App domain intranet authorization.
 type App struct {
 	Key    string
 	Secret string

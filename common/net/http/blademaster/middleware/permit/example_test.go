@@ -54,7 +54,7 @@ func Example() {
 			SessionIDLength: 32,
 			CookieLifeTime:  1800,
 			CookieName:      "mng-go",
-			Domain:          ".bilibili.co",
+			Domain:          ".domain.co",
 			Memcache: &memcache.Config{
 				Config: &pool.Config{
 					Active:      10,
@@ -69,8 +69,8 @@ func Example() {
 				WriteTimeout: xtime.Duration(time.Millisecond * 1000),
 			},
 		},
-		ManagerHost:     "http://uat-manager.bilibili.co",
-		DashboardHost:   "http://uat-dashboard-mng.bilibili.co",
+		ManagerHost:     "http://uat-manager.domain.co",
+		DashboardHost:   "http://uat-dashboard-mng.domain.co",
 		DashboardCaller: "manager-go",
 	})
 

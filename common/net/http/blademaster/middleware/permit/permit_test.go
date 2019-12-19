@@ -87,7 +87,7 @@ func getPermit() *Permit {
 			SessionIDLength: 32,
 			CookieLifeTime:  1800,
 			CookieName:      "mng-go",
-			Domain:          ".bilibili.co",
+			Domain:          ".domain.co",
 			Memcache: &memcache.Config{
 				Config: &pool.Config{
 					Active:      10,
@@ -102,8 +102,8 @@ func getPermit() *Permit {
 				WriteTimeout: xtime.Duration(time.Millisecond * 1000),
 			},
 		},
-		ManagerHost:     "http://uat-manager.bilibili.co",
-		DashboardHost:   "http://dashboard-mng.bilibili.co",
+		ManagerHost:     "http://uat-manager.domain.co",
+		DashboardHost:   "http://dashboard-mng.domain.co",
 		DashboardCaller: "manager-go",
 	})
 }

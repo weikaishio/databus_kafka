@@ -67,7 +67,7 @@ func (s *helloServer) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.He
 	time.Sleep(time.Millisecond * time.Duration(in.Age))
 	time.Sleep(sleep)
 	for i := 0; i < cpu+rand.Intn(cpu); i++ {
-		crc32.Checksum([]byte(`testasdwfwfsddsfgwddcscschttp://git.bilibili.co/platform/go-common/merge_requests/new?merge_request%5Bsource_branch%5D=stress%2Fcodel`), crc32.IEEETable)
+		crc32.Checksum([]byte(`testasdwfwfsddsfgwddcscschttp://git.domain.co/platform/go-common/merge_requests/new?merge_request%5Bsource_branch%5D=stress%2Fcodel`), crc32.IEEETable)
 	}
 	return &pb.HelloReply{Message: "Hello " + in.Name, Success: true}, nil
 }

@@ -32,7 +32,7 @@ func init() {
 
 func verify() *Verify {
 	return New(&Config{
-		OpenServiceHost: "http://uat-open.bilibili.co",
+		OpenServiceHost: "http://uat-open.domain.co",
 		HTTPClient: &bm.ClientConfig{
 			App: &bm.App{
 				Key:    "53e2fa226f5ad348",

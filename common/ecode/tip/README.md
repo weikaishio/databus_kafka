@@ -12,12 +12,12 @@
 
 ##### 编译执行
 > 1. 启动执行 ecode.Init(conf.Conf.Ecode)，初始化ecode 配置
-> 2. 配置参考 http://info.bilibili.co/pages/viewpage.action?pageId=3684076 配置
+> 2. 配置参考 http://info.domain.co/pages/viewpage.action?pageId=3684076 配置
 
 ##### 测试
 > 1. 执行当前目录下所有测试文件，测试所有功能
 
 ##### 特别说明
 > 1. common.go 里面保存所有业务的code码，当有新增加code码需求时请记得一定及时更新common,并在管理平台配置对应信息
-> 2. 管理平台地址 http://apm-monitor.bilibili.co/#/codes/codeslist?name=all
-> 3. 按部门给错误码分大段，部门内部按业务模块继续分段具体参考info地址: http://info.bilibili.co/pages/viewpage.action?pageId=5374316
+> 2. 管理平台地址 http://apm-monitor.domain.co/#/codes/codeslist?name=all
+> 3. 按部门给错误码分大段，部门内部按业务模块继续分段具体参考info地址: http://info.domain.co/pages/viewpage.action?pageId=5374316

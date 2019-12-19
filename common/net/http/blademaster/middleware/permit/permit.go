@@ -19,7 +19,7 @@ const (
 	_sessIDKey             = "_AJSESSIONID"
 	_sessUIDKey            = "uid"      // manager user_id
 	_sessUnKey             = "username" // LDAP username
-	_defaultDomain         = ".bilibili.co"
+	_defaultDomain         = ".domain.co"
 	_defaultCookieName     = "mng-go"
 	_defaultCookieLifeTime = 2592000
 	// CtxPermissions will be set into ctx.

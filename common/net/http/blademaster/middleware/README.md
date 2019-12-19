@@ -4,7 +4,7 @@
 
 ##### 项目简介
 
-来自 bilibili 主站技术部的 blademaster middleware，目前以下 middleware 已经 Ready for Production：
+来自 domain 主站技术部的 blademaster middleware，目前以下 middleware 已经 Ready for Production：
 
 - Antispam
 - Limiter

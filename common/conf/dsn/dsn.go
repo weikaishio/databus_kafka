@@ -1,5 +1,5 @@
 // Package dsn provide parse dsn and bind to struct
-// see http://git.bilibili.co/platform/go-common/issues/279
+// see http://git.domain.co/platform/go-common/issues/279
 package dsn
 
 import (

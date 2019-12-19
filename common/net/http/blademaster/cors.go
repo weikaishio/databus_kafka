@@ -15,7 +15,7 @@ var (
 	allowOriginHosts = []string{
 		".domain.com",
 		".biligame.com",
-		".bilibili.co",
+		".domain.co",
 		".im9.com",
 		".acg.tv",
 		".hdslb.com",

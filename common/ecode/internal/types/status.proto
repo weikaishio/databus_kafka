@@ -1,13 +1,13 @@
 syntax = "proto3";
 
-package bilibili.rpc;
+package domain.rpc;
 
 import "google/protobuf/any.proto";
 
 option go_package = "github.com/weikaishio/databus_kafka/common/ecode/internal/types;types";
 option java_multiple_files = true;
 option java_outer_classname = "StatusProto";
-option java_package = "com.bilibili.rpc";
+option java_package = "com.domain.rpc";
 option objc_class_prefix = "RPC";
 
 message Status {

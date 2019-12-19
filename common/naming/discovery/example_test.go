@@ -13,7 +13,7 @@ import (
 // when the program is about to exit,registry.Cancel should be called.
 func Example() {
 	var c = &discovery.Config{
-		Nodes:  []string{"api.bilibili.co"},
+		Nodes:  []string{"api.domain.co"},
 		Zone:   "sh001",
 		Env:    "pre",
 		Key:    "0c4b8fe3ff35a4b6",

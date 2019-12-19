@@ -1067,8 +1067,8 @@ func TestCORSFailed(t *testing.T) {
 		t.Fatalf("Failed to build request: %s", err)
 	}
 
-	req.Header.Set("Referer", "http://www.bilibili2.com/")
-	req.Header.Set("Origin", "ccc.bilibili2.com")
+	req.Header.Set("Referer", "http://www.domain2.com/")
+	req.Header.Set("Origin", "ccc.domain2.com")
 	resp, err := c.Do(req)
 	if err != nil {
 		t.Fatalf("Failed to send request: %s", err)
@@ -1088,14 +1088,14 @@ func TestCSRF(t *testing.T) {
 		"http://www.im9.com/",
 		"http://www.acg.tv/",
 		"http://www.hdslb.com/",
-		"http://www.bilibili.co/",
+		"http://www.domain.co/",
 		// should match by appid
 		"https://servicewechat.com/wx7564fd5313d24844/devtools/page-frame.html",
 		"http://servicewechat.com/wx7564fd5313d24844/",
 		"http://servicewechat.com/wx7564fd5313d24844",
 		"http://servicewechat.com/wx618ca8c24bf06c33",
 
-		// "http://bilibili.co/",
+		// "http://domain.co/",
 		// "http://hdslb.com/",
 		// "http://acg.tv/",
 		// "http://im9.com/",
@@ -1103,7 +1103,7 @@ func TestCSRF(t *testing.T) {
 		// "http://domain.com/",
 	}
 	notAllowed := []string{
-		"http://www.bilibili2.com/",
+		"http://www.domain2.com/",
 		"http://www.biligame2.com/",
 		"http://www.im92.com/",
 		"http://www.acg2.tv/",
