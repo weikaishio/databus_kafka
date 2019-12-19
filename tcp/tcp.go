@@ -8,12 +8,11 @@ import (
 	"sync"
 	"time"
 
-	"github.com/weikaishio/databus_kafka/conf"
-	"github.com/weikaishio/databus_kafka/dsn"
+	"github.com/weikaishio/databus_kafka/auth_service/dsn"
 
-	"github.com/weikaishio/databus_kafka/model"
+	"github.com/weikaishio/databus_kafka/auth_service/model"
 
-	"github.com/weikaishio/databus_kafka/service"
+	"github.com/weikaishio/databus_kafka/auth_service"
 
 	"github.com/weikaishio/databus_kafka/common/log_b"
 
@@ -121,15 +120,16 @@ var (
 	subs    = make(map[*Sub]struct{})
 	subLock sync.RWMutex
 	// service for auth
-	svc *service.Service
+	svc *auth_service.Service
 	// limiter
 	consumerLimter = make(chan struct{}, 100)
+	clusters map[string]*Kafka
 )
 
 // Init init service
-func Init(c *conf.Config, s *service.Service) {
+func Init(addr string, clus map[string]*Kafka, s *auth_service.Service) {
 	var err error
-	if listener, err = net.Listen("tcp", c.Addr); err != nil {
+	if listener, err = net.Listen("tcp",addr); err != nil {
 		panic(err)
 	}
 	// sarama should be initialized otherwise errors will be ignored when sarama catch error
@@ -137,13 +137,14 @@ func Init(c *conf.Config, s *service.Service) {
 	// sarama metrics disable
 	metrics.UseNilMetrics = true
 	svc = s
-	log.Info("start tcp listen addr: %s", c.Addr)
+	clusters=clus
+	log.Info("start tcp listen addr: %s", addr)
 	go accept()
 	go clear()
 	go clusterproc()
 }
 
-func newProducer(group, topic string, pCfg *conf.Kafka) (p sarama.SyncProducer, err error) {
+func newProducer(group, topic string, pCfg *Kafka) (p sarama.SyncProducer, err error) {
 	var (
 		ok  bool
 		key = key(pCfg.Cluster, group, topic)
@@ -225,7 +226,7 @@ func serveConn(nc net.Conn) {
 		p     *Pub
 		s     *Sub
 		d     *dsn.DSN
-		cfg   *conf.Kafka
+		cfg   *Kafka
 		batch int64
 		addr  = nc.RemoteAddr().String()
 	)
@@ -284,24 +285,24 @@ func serveConn(nc net.Conn) {
 	}
 }
 
-func auth(c *conn) (d *dsn.DSN, cfg *conf.Kafka, batch int64, err error) {
+func auth(c *conn) (d *dsn.DSN, cfg *Kafka, batch int64, err error) {
 	var (
 		args [][]byte
-		//cmd  string
+		cmd  string
 		addr = c.conn.RemoteAddr().String()
 	)
-	//if cmd, args, err = c.Read(); err != nil {
-	//	log.Error("c.Read addr(%s) error(%v)", addr, err)
-	//	return
-	//}
-	//if cmd != _auth || len(args) != 1 {
-	//	log.Error("c.Read addr(%s) first cmd(%s) not auth or have not enough args(%v)", addr, cmd, args)
-	//	err = errCmdAuthFailed
-	//	return
-	//}
+	if cmd, args, err = c.Read(); err != nil {
+		log.Error("c.Read addr(%s) error(%v)", addr, err)
+		return
+	}
+	if cmd != _auth || len(args) != 1 {
+		log.Error("c.Read addr(%s) first cmd(%s) not auth or have not enough args(%v)", addr, cmd, args)
+		err = errCmdAuthFailed
+		return
+	}
 	// key:secret@group/topic=?&role=?&offset=?
-	//if d, err = dsn.ParseDSN(string(args[0])); err != nil {
-	if d, err = dsn.ParseDSN("key:secret@group/topic=test156&role=sub&offset=0"); err != nil {
+	if d, err = dsn.ParseDSN(string(args[0])); err != nil {
+	//if d, err = dsn.ParseDSN("key:secret@group/topic=test156&role=sub&offset=0"); err != nil {
 		log.Error("auth failed arg(%s) is illegal,addr(%s) error(%v)", args[0], addr, err)
 		return
 	}
@@ -312,33 +313,33 @@ func auth(c *conn) (d *dsn.DSN, cfg *conf.Kafka, batch int64, err error) {
 
 // Auth 校验认证信息并反回相应配置
 // 与 http 接口共用，不要在此方法执行 io 操作
-func Auth(d *dsn.DSN, addr string) (cfg *conf.Kafka, batch int64, err error) {
+func Auth(d *dsn.DSN, addr string) (cfg *Kafka, batch int64, err error) {
 	var (
 		a  *model.Auth
 		ok bool
 	)
 
-	//if a, ok = svc.AuthApp(d.Group); !ok {
-	//	log.Error("addr(%s) group(%s) cant not be found", addr, d.Group)
-	//	svc.CountProm.Incr(_opAuthError, d.Group, d.Topic)
-	//	err = errAuthInfo
-	//	return
-	//}
-	a=&model.Auth{
-		Group:     "test",
-		Topic:     "test156",
-		Operation: 3,
-		Key:       "key",
-		Secret:    "secret",
-		Batch:     0,
-		Cluster:   "test_kafka_9092-266",
+	if a, ok = svc.AuthApp(d.Group); !ok {
+		log.Error("addr(%s) group(%s) cant not be found", addr, d.Group)
+		svc.CountProm.Incr(_opAuthError, d.Group, d.Topic)
+		err = errAuthInfo
+		return
 	}
-	batch = a.Batch
-	//if err = a.Auth(d.Group, d.Topic, d.Key, d.Secret); err != nil {
-	//	log.Error("a.Auth addr(%s) group(%s) topic(%s) color(%s) key(%s) secret(%s) error(%v)", addr, d.Group, d.Topic, d.Color, d.Key, d.Secret, err)
-	//	svc.CountProm.Incr(_opAuthError, d.Group, d.Topic)
-	//	return
+	//a=&model.Auth{
+	//	Group:     "test",
+	//	Topic:     "test156",
+	//	Operation: 3,
+	//	Key:       "key",
+	//	Secret:    "secret",
+	//	Batch:     0,
+	//	Cluster:   "test_kafka_9092-266",
 	//}
+	batch = a.Batch
+	if err = a.Auth(d.Group, d.Topic, d.Key, d.Secret); err != nil {
+		log.Error("a.Auth addr(%s) group(%s) topic(%s) color(%s) key(%s) secret(%s) error(%v)", addr, d.Group, d.Topic, d.Color, d.Key, d.Secret, err)
+		svc.CountProm.Incr(_opAuthError, d.Group, d.Topic)
+		return
+	}
 	switch d.Role {
 	case _rolePub:
 		if !a.CanPub() {
@@ -354,11 +355,11 @@ func Auth(d *dsn.DSN, addr string) (cfg *conf.Kafka, batch int64, err error) {
 		err = errCmdNotSupport
 		return
 	}
-	if len(conf.Conf.Clusters) == 0 {
+	if len(clusters) == 0 {
 		err = errClusterNotExist
 		return
 	}
-	if cfg, ok = conf.Conf.Clusters[a.Cluster]; !ok || cfg == nil {
+	if cfg, ok = clusters[a.Cluster]; !ok || cfg == nil {
 		log.Error("a.Auth addr(%s) group(%s) topic(%s) color(%s) key(%s) secret(%s) cluster(%s) not support", addr, d.Group, d.Topic, d.Color, d.Key, d.Secret, a.Cluster)
 		err = errClusterNotSupport
 	}
@@ -420,7 +421,7 @@ func clusterproc() {
 			// renew producer
 			if newAuth, ok := svc.AuthApp(oldAuth.Group); ok {
 				pLock.Unlock()
-				np, err := newProducer(newAuth.Group, newAuth.Topic, conf.Conf.Clusters[newAuth.Cluster])
+				np, err := newProducer(newAuth.Group, newAuth.Topic, clusters[newAuth.Cluster])
 				pLock.Lock()
 				// check pubs
 				pubLock.Lock()

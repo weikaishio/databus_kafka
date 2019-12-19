@@ -9,11 +9,8 @@ import (
 	"time"
 	"unicode"
 
-	"github.com/weikaishio/databus_kafka/conf"
-
 	"github.com/weikaishio/databus_kafka/common/queue/databus"
 
-	//"github.com/weikaishio/databus_kafka/common/conf/env"
 	"github.com/weikaishio/databus_kafka/common/log_b"
 
 	"github.com/Shopify/sarama"
@@ -33,6 +30,11 @@ func stringify(b []byte) []byte {
 	)
 }
 
+// Kafka contains cluster, brokers, sync.
+type Kafka struct {
+	Cluster string
+	Brokers []string
+}
 type proto struct {
 	prefix  byte
 	integer int
@@ -136,7 +138,7 @@ type Pub struct {
 
 // NewPub new databus producer
 // http 接口复用此方法，c 传 nil
-func NewPub(c *conn, group, topic, color string, pCfg *conf.Kafka) (p *Pub, err error) {
+func NewPub(c *conn, group, topic, color string, pCfg *Kafka) (p *Pub, err error) {
 	producer, err := newProducer(group, topic, pCfg)
 	if err != nil {
 		log.Error("group(%s) topic(%s) cluster(%s) NewPub producer error(%v)", group, topic, pCfg.Cluster, err)
@@ -254,7 +256,7 @@ type Sub struct {
 }
 
 // NewSub new databus consumer
-func NewSub(c *conn, group, topic, color string, sCfg *conf.Kafka, batch int64) (s *Sub, err error) {
+func NewSub(c *conn, group, topic, color string, sCfg *Kafka, batch int64) (s *Sub, err error) {
 	select {
 	case <-consumerLimter:
 	default:
@@ -384,23 +386,22 @@ func (s *Sub) Serve() {
 	}()
 	log.Info("group(%s) topic(%s) cluster(%s) color(%s) addr(%s) begin serve", s.group, s.topic, s.cluster, s.color, s.addr)
 	for {
-		//if cmd, args, err = s.c.Read(); err != nil {
-		//	if err != io.EOF {
-		//		log.Error("group(%s) topic(%s) cluster(%s) color(%s) addr(%s) read error(%v)", s.group, s.topic, s.cluster, s.color, s.addr, err)
-		//	}
-		//	s.fatal(errConnRead)
-		//	return
-		//}
-		//if s.consumer == nil {
-		//	log.Error("group(%s) topic(%s) cluster(%s) color(%s) addr(%s) s.consumer is nil", s.group, s.topic, s.cluster, s.color, s.addr)
-		//	s.fatal(errConsumerClosed)
-		//	return
-		//}
-		//if s.Closed() {
-		//	log.Warn("group(%s) topic(%s) cluster(%s) color(%s) addr(%s) s.Closed()", s.group, s.topic, s.cluster, s.color, s.addr)
-		//	return
-		//}
-		cmd=_mget
+		if cmd, args, err = s.c.Read(); err != nil {
+			if err != io.EOF {
+				log.Error("group(%s) topic(%s) cluster(%s) color(%s) addr(%s) read error(%v)", s.group, s.topic, s.cluster, s.color, s.addr, err)
+			}
+			s.fatal(errConnRead)
+			return
+		}
+		if s.consumer == nil {
+			log.Error("group(%s) topic(%s) cluster(%s) color(%s) addr(%s) s.consumer is nil", s.group, s.topic, s.cluster, s.color, s.addr)
+			s.fatal(errConsumerClosed)
+			return
+		}
+		if s.Closed() {
+			log.Warn("group(%s) topic(%s) cluster(%s) color(%s) addr(%s) s.Closed()", s.group, s.topic, s.cluster, s.color, s.addr)
+			return
+		}
 		switch cmd {
 		case _auth:
 			err = s.write(proto{prefix: _protoStr, message: _ok})

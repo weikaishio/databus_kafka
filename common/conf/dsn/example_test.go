@@ -19,7 +19,7 @@ type Config struct {
 
 func ExampleParse() {
 	cfg := &Config{}
-	d, err := dsn.Parse("tcp://root:toor@172.12.12.23:2233?timeout=10s")
+	d, err := dsn.Parse("tcp://username:pwd@127.0.0.1:7788?timeout=10s")
 	if err != nil {
 		log.Fatal(err)
 	}

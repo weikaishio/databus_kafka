@@ -13,7 +13,7 @@ import (
 
 var (
 	allowOriginHosts = []string{
-		".bilibili.com",
+		".domain.com",
 		".biligame.com",
 		".bilibili.co",
 		".im9.com",

@@ -6,12 +6,12 @@ import (
 )
 
 // This example create several reverse proxy to show how to use proxy middleware.
-// We proxy three path to `api.bilibili.com` and return response without any changes.
+// We proxy three path to `api.domain.com` and return response without any changes.
 func Example() {
 	proxies := map[string]string{
-		"/index":        "http://api.bilibili.com/html/index",
-		"/ping":         "http://api.bilibili.com/api/ping",
-		"/api/versions": "http://api.bilibili.com/api/web/versions",
+		"/index":        "http://api.domain.com/html/index",
+		"/ping":         "http://api.domain.com/api/ping",
+		"/api/versions": "http://api.domain.com/api/web/versions",
 	}
 
 	engine := blademaster.Default()
@@ -25,9 +25,9 @@ func Example() {
 // The request will be proxied to destination only when request is from specified datacenter.
 func ExampleNewZoneProxy() {
 	proxies := map[string]string{
-		"/index":        "http://api.bilibili.com/html/index",
-		"/ping":         "http://api.bilibili.com/api/ping",
-		"/api/versions": "http://api.bilibili.com/api/web/versions",
+		"/index":        "http://api.domain.com/html/index",
+		"/ping":         "http://api.domain.com/api/ping",
+		"/api/versions": "http://api.domain.com/api/web/versions",
 	}
 
 	engine := blademaster.Default()
@@ -38,7 +38,7 @@ func ExampleNewZoneProxy() {
 		})
 	}
 	// proxy with request path
-	ug := engine.Group("/update", proxy.NewZoneProxy("sh004", "http://sh001-api.bilibili.com"))
+	ug := engine.Group("/update", proxy.NewZoneProxy("sh004", "http://sh001-api.domain.com"))
 	ug.POST("/name", func(ctx *blademaster.Context) {
 		ctx.String(500, "Should not be accessed")
 	})

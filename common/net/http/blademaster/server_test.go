@@ -40,7 +40,7 @@ var (
 	curEngine atomic.Value
 
 	ByteContent = []byte(`<html>
-	<meta http-equiv="refresh" content="0;uri=http://www.bilibili.com/">
+	<meta http-equiv="refresh" content="0;uri=http://www.domain.com/">
 	</html>`)
 	CertPEM = `-----BEGIN CERTIFICATE-----
 MIIDJzCCAg8CCQDHIbk1Vp7UbzANBgkqhkiG9w0BAQsFADCBkDELMAkGA1UEBhMC
@@ -910,7 +910,7 @@ func TestRender(t *testing.T) {
 func TestRedirect(t *testing.T) {
 	c := &http.Client{
 		CheckRedirect: func(req *http.Request, via []*http.Request) error {
-			req.Header["Referer"] = []string{"http://www.bilibili.com/"}
+			req.Header["Referer"] = []string{"http://www.domain.com/"}
 			return nil
 		},
 	}
@@ -942,13 +942,13 @@ func TestRedirect(t *testing.T) {
 func TestCORSPreflight(t *testing.T) {
 	once.Do(startServer)
 
-	origin := "ccc.bilibili.com"
+	origin := "ccc.domain.com"
 	c := &http.Client{}
 	req, err := http.NewRequest("OPTIONS", uri(SockAddr, "/get"), nil)
 	if err != nil {
 		t.Fatalf("Failed to build request: %s", err)
 	}
-	req.Header.Set("Referer", "http://www.bilibili.com/")
+	req.Header.Set("Referer", "http://www.domain.com/")
 	req.Header.Set("Origin", origin)
 	resp, err := c.Do(req)
 	if err != nil {
@@ -992,13 +992,13 @@ func TestCORSPreflight(t *testing.T) {
 func TestCORSNormal(t *testing.T) {
 	once.Do(startServer)
 
-	origin := "ccc.bilibili.com"
+	origin := "ccc.domain.com"
 	c := &http.Client{}
 	req, err := http.NewRequest("GET", uri(SockAddr, "/get"), nil)
 	if err != nil {
 		t.Fatalf("Failed to build request: %s", err)
 	}
-	req.Header.Set("Referer", "http://www.bilibili.com/")
+	req.Header.Set("Referer", "http://www.domain.com/")
 	req.Header.Set("Origin", origin)
 	resp, err := c.Do(req)
 	if err != nil {
@@ -1021,14 +1021,14 @@ func TestCORSNormal(t *testing.T) {
 func TestJSONP(t *testing.T) {
 	once.Do(startServer)
 
-	origin := "ccc.bilibili.com"
+	origin := "ccc.domain.com"
 	r := regexp.MustCompile(`onsuccess\((.*)\)`)
 	c := &http.Client{}
 	req, err := http.NewRequest("GET", uri(SockAddr, "/json?cross_domain=true&jsonp=jsonp&callback=onsuccess"), nil)
 	if err != nil {
 		t.Fatalf("Failed to build request: %s", err)
 	}
-	req.Header.Set("Referer", "http://www.bilibili.com/")
+	req.Header.Set("Referer", "http://www.domain.com/")
 	req.Header.Set("Origin", origin)
 	resp, err := c.Do(req)
 	if err != nil {
@@ -1083,7 +1083,7 @@ func TestCSRF(t *testing.T) {
 	once.Do(startServer)
 
 	allowed := []string{
-		"http://www.bilibili.com/",
+		"http://www.domain.com/",
 		"http://www.biligame.com/",
 		"http://www.im9.com/",
 		"http://www.acg.tv/",
@@ -1100,7 +1100,7 @@ func TestCSRF(t *testing.T) {
 		// "http://acg.tv/",
 		// "http://im9.com/",
 		// "http://biligame.com/",
-		// "http://bilibili.com/",
+		// "http://domain.com/",
 	}
 	notAllowed := []string{
 		"http://www.bilibili2.com/",

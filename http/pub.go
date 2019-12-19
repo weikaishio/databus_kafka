@@ -5,11 +5,11 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/weikaishio/databus_kafka/conf"
-	"github.com/weikaishio/databus_kafka/dsn"
-	"github.com/weikaishio/databus_kafka/tcp"
 	"github.com/weikaishio/databus_kafka/common/log_b"
 	bm "github.com/weikaishio/databus_kafka/common/net/http/blademaster"
+	"github.com/weikaishio/databus_kafka/example_svr/conf"
+	"github.com/weikaishio/databus_kafka/auth_service/dsn"
+	"github.com/weikaishio/databus_kafka/tcp"
 )
 
 const (

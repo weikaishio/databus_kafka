@@ -1,0 +1,43 @@
+# This is a TOML document. Boom
+
+version = "0.1.0"
+user = "nobody"
+pid = "/tmp/example.pid"
+dir = "./"
+
+[log]
+dir = "/data/log/example"
+stdout=true
+
+[examplePubMsgDatabus]
+    key = "app_key1"
+    secret = "app_secret1"
+    group = "group_name1"
+    topic = "test156"
+    action = "pub"
+    name = "name"
+    proto = "tcp"
+    addr = "127.0.0.1:6205"
+    idle = 100
+    active = 100
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "1s"
+    idleTimeout = "10s"
+
+[exampleSubMsgDatabus]
+    key = "app_key1"
+    secret = "app_secret1"
+    group = "group_name1"
+    topic = "test156"
+    action = "sub"
+    name = "name"
+    proto = "tcp"
+    addr = "127.0.0.1:6205"
+    idle = 100
+    active = 100
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "1s"
+    idleTimeout = "10s"
+

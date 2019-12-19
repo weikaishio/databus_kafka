@@ -21,8 +21,8 @@ func init() {
 
 func TestProxy(t *testing.T) {
 	engine := bm.Default()
-	engine.GET("/icon", NewAlways("http://api.bilibili.com/x/web-interface/index/icon"))
-	engine.POST("/x/web-interface/archive/like", NewAlways("http://api.bilibili.com"))
+	engine.GET("/icon", NewAlways("http://api.domain.com/x/web-interface/index/icon"))
+	engine.POST("/x/web-interface/archive/like", NewAlways("http://api.domain.com"))
 
 	go engine.Run(":18080")
 	defer func() {
@@ -32,7 +32,7 @@ func TestProxy(t *testing.T) {
 
 	req, err := http.NewRequest("GET", "http://127.0.0.1:18080/icon", nil)
 	assert.NoError(t, err)
-	req.Host = "api.bilibili.com"
+	req.Host = "api.domain.com"
 
 	resp, err := http.DefaultClient.Do(req)
 	assert.NoError(t, err)
@@ -45,7 +45,7 @@ func TestProxy(t *testing.T) {
 	form.Set("arg2", "2")
 	req, err = http.NewRequest("POST", "http://127.0.0.1:18080/x/web-interface/archive/like?param=test", bytes.NewReader([]byte(form.Encode())))
 	assert.NoError(t, err)
-	req.Host = "api.bilibili.com"
+	req.Host = "api.domain.com"
 
 	resp, err = http.DefaultClient.Do(req)
 	assert.NoError(t, err)
@@ -56,7 +56,7 @@ func TestProxy(t *testing.T) {
 	bs := []byte(`{"arg1": 1, "arg2": 2}`)
 	req, err = http.NewRequest("POST", "http://127.0.0.1:18080/x/web-interface/archive/like?param=test", bytes.NewReader(bs))
 	assert.NoError(t, err)
-	req.Host = "api.bilibili.com"
+	req.Host = "api.domain.com"
 	req.Header.Set("Content-Type", "application/json; charset=utf-8")
 
 	resp, err = http.DefaultClient.Do(req)
@@ -67,7 +67,7 @@ func TestProxy(t *testing.T) {
 
 func TestProxyRace(t *testing.T) {
 	engine := bm.Default()
-	engine.GET("/icon", NewAlways("http://api.bilibili.com/x/web-interface/index/icon"))
+	engine.GET("/icon", NewAlways("http://api.domain.com/x/web-interface/index/icon"))
 
 	go engine.Run(":18080")
 	defer func() {
@@ -82,7 +82,7 @@ func TestProxyRace(t *testing.T) {
 			defer wg.Done()
 			req, err := http.NewRequest("GET", "http://127.0.0.1:18080/icon", nil)
 			assert.NoError(t, err)
-			req.Host = "api.bilibili.com"
+			req.Host = "api.domain.com"
 
 			resp, err := http.DefaultClient.Do(req)
 			assert.NoError(t, err)
@@ -95,13 +95,13 @@ func TestProxyRace(t *testing.T) {
 
 func TestZoneProxy(t *testing.T) {
 	engine := bm.Default()
-	engine.GET("/icon", NewZoneProxy("sh004", "http://api.bilibili.com/x/web-interface/index/icon"), func(ctx *bm.Context) {
+	engine.GET("/icon", NewZoneProxy("sh004", "http://api.domain.com/x/web-interface/index/icon"), func(ctx *bm.Context) {
 		ctx.AbortWithStatus(500)
 	})
-	engine.GET("/icon2", NewZoneProxy("none", "http://api.bilibili.com/x/web-interface/index/icon2"), func(ctx *bm.Context) {
+	engine.GET("/icon2", NewZoneProxy("none", "http://api.domain.com/x/web-interface/index/icon2"), func(ctx *bm.Context) {
 		ctx.AbortWithStatus(200)
 	})
-	ug := engine.Group("/update", NewZoneProxy("sh004", "http://api.bilibili.com"))
+	ug := engine.Group("/update", NewZoneProxy("sh004", "http://api.domain.com"))
 	ug.POST("/name", func(ctx *bm.Context) {
 		ctx.AbortWithStatus(500)
 	})
@@ -117,7 +117,7 @@ func TestZoneProxy(t *testing.T) {
 
 	req, err := http.NewRequest("GET", "http://127.0.0.1:18080/icon", nil)
 	assert.NoError(t, err)
-	req.Host = "api.bilibili.com"
+	req.Host = "api.domain.com"
 	req.Header.Set("X-BILI-SLB", "shjd-out-slb")
 
 	resp, err := http.DefaultClient.Do(req)
@@ -146,7 +146,7 @@ func TestZoneProxy(t *testing.T) {
 
 func BenchmarkProxy(b *testing.B) {
 	engine := bm.Default()
-	engine.GET("/icon", NewAlways("http://api.bilibili.com/x/web-interface/index/icon"))
+	engine.GET("/icon", NewAlways("http://api.domain.com/x/web-interface/index/icon"))
 
 	go engine.Run(":18080")
 	defer func() {
@@ -159,7 +159,7 @@ func BenchmarkProxy(b *testing.B) {
 		for pb.Next() {
 			req, err := http.NewRequest("GET", "http://127.0.0.1:18080/icon", nil)
 			assert.NoError(b, err)
-			req.Host = "api.bilibili.com"
+			req.Host = "api.domain.com"
 
 			resp, err := http.DefaultClient.Do(req)
 			assert.NoError(b, err)

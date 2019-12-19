@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/weikaishio/databus_kafka/conf"
+	"github.com/weikaishio/databus_kafka/example_svr/conf"
 
 	. "github.com/smartystreets/goconvey/convey"
 )

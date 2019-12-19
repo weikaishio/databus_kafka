@@ -30,7 +30,7 @@ func ExampleBinding() {
 }
 
 func initHTTP(params string) (req *http.Request) {
-	req, _ = http.NewRequest("GET", "http://api.bilibili.com/test?"+params, nil)
+	req, _ = http.NewRequest("GET", "http://api.domain.com/test?"+params, nil)
 	req.ParseForm()
 	return
 }

@@ -10,7 +10,7 @@ import (
 
 var (
 	_allowHosts = []string{
-		".bilibili.com",
+		".domain.com",
 		".bilibili.co",
 		".biligame.com",
 		".im9.com",

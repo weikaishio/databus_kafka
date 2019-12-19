@@ -54,14 +54,14 @@ func TestClient(t *testing.T) {
 		Code int `json:"code"`
 	}
 	// test Get
-	if err := client.Get(context.Background(), "http://api.bilibili.com/x/server/now", "", nil, &res); err != nil {
+	if err := client.Get(context.Background(), "http://api.domain.com/x/server/now", "", nil, &res); err != nil {
 		t.Errorf("HTTPClient: expected no error but got %v", err)
 	}
 	if res.Code != 0 {
 		t.Errorf("HTTPClient: expected code=0 but got %d", res.Code)
 	}
 	// test Post
-	if err := client.Post(context.Background(), "http://api.bilibili.com/x/server/now", "", nil, &res); err != nil {
+	if err := client.Post(context.Background(), "http://api.domain.com/x/server/now", "", nil, &res); err != nil {
 		t.Errorf("HTTPClient: expected no error but got %v", err)
 	}
 	if res.Code != -405 {
@@ -86,15 +86,15 @@ func TestClient(t *testing.T) {
 		t.Errorf("HTTPClient: expected error timeout for path")
 	}
 	client.SetConfig(&ClientConfig{
-		Host: map[string]*ClientConfig{"api.bilibili.com": {Timeout: xtime.Duration(time.Millisecond * 300)}},
+		Host: map[string]*ClientConfig{"api.domain.com": {Timeout: xtime.Duration(time.Millisecond * 300)}},
 	})
-	if err := client.Get(context.Background(), "http://api.bilibili.com/x/server/now", "", nil, &res); err != nil {
+	if err := client.Get(context.Background(), "http://api.domain.com/x/server/now", "", nil, &res); err != nil {
 		t.Errorf("HTTPClient: expected no error but got %v", err)
 	}
 	client.SetConfig(&ClientConfig{
-		Host: map[string]*ClientConfig{"api.bilibili.com": {Timeout: xtime.Duration(time.Millisecond * 1)}},
+		Host: map[string]*ClientConfig{"api.domain.com": {Timeout: xtime.Duration(time.Millisecond * 1)}},
 	})
-	if err := client.Get(context.Background(), "http://api.bilibili.com/x/server/now", "", nil, &res); err == nil {
+	if err := client.Get(context.Background(), "http://api.domain.com/x/server/now", "", nil, &res); err == nil {
 		t.Errorf("HTTPClient: expected error timeout but got %v", err)
 	}
 	client.SetConfig(&ClientConfig{KeepAlive: xtime.Duration(time.Second * 70)})
@@ -103,7 +103,7 @@ func TestClient(t *testing.T) {
 func TestDo(t *testing.T) {
 	var (
 		aid    = 5463320
-		uri    = "http://api.bilibili.com/x/server/now"
+		uri    = "http://api.domain.com/x/server/now"
 		req    *http.Request
 		client *Client
 		err    error
@@ -156,12 +156,12 @@ func BenchmarkDo(b *testing.B) {
 			Request: 10,
 		},
 		URL: map[string]*ClientConfig{
-			"http://api.bilibili.com/x/server/now":  {Timeout: xtime.Duration(time.Second)},
-			"http://api.bilibili.com/x/server/nowx": {Timeout: xtime.Duration(time.Second)},
+			"http://api.domain.com/x/server/now":  {Timeout: xtime.Duration(time.Second)},
+			"http://api.domain.com/x/server/nowx": {Timeout: xtime.Duration(time.Second)},
 		},
 	}
 	client := NewClient(cf)
-	uri := "http://api.bilibili.com/x/server/now"
+	uri := "http://api.domain.com/x/server/now"
 	b.ResetTimer()
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
@@ -179,7 +179,7 @@ func BenchmarkDo(b *testing.B) {
 			}
 		}
 	})
-	uri = "http://api.bilibili.com/x/server/nowx" // NOTE: for breaker
+	uri = "http://api.domain.com/x/server/nowx" // NOTE: for breaker
 	b.ResetTimer()
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
@@ -260,7 +260,7 @@ func TestRESTfulClient(t *testing.T) {
 func TestRaw(t *testing.T) {
 	var (
 		aid    = 5463320
-		uri    = "http://api.bilibili.com/x/server/now"
+		uri    = "http://api.domain.com/x/server/now"
 		req    *http.Request
 		client *Client
 		err    error
@@ -299,7 +299,7 @@ func TestRaw(t *testing.T) {
 func TestJSON(t *testing.T) {
 	var (
 		aid    = 5463320
-		uri    = "http://api.bilibili.com/x/server/now"
+		uri    = "http://api.domain.com/x/server/now"
 		req    *http.Request
 		client *Client
 		err    error

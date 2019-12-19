@@ -40,7 +40,7 @@ const (
 )
 
 var (
-	_noKickUserAgent = "haoguanwei@bilibili.com "
+	_noKickUserAgent = "haoguanwei@domain.com "
 	clientStats      = stat.HTTPClient
 )
 
