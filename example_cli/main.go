@@ -19,7 +19,7 @@ func main() {
 	fmt.Printf("conf:%v,%v\n", conf.Conf, conf.Conf.ExamplePubMsgDatabus)
 
 	examplePubMsgDatabus := databus.New(conf.Conf.ExamplePubMsgDatabus)
-	err := examplePubMsgDatabus.Send(context.Background(), "1", "example publish")
+	err := examplePubMsgDatabus.Send(context.Background(), "aaaa", "example publish")
 	if err != nil {
 		fmt.Printf("err:%v", err)
 	}

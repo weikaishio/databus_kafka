@@ -7,7 +7,7 @@ import (
 
 	"github.com/weikaishio/databus_kafka/common/net/http/blademaster"
 	"github.com/weikaishio/databus_kafka/common/net/http/blademaster/binding"
-	"github.com/weikaishio/databus_kafka/common/net/http/blademaster/middleware/auth"
+	//"github.com/weikaishio/databus_kafka/common/net/http/blademaster/middleware/auth"
 	"github.com/weikaishio/databus_kafka/common/net/http/blademaster/middleware/verify"
 	"github.com/weikaishio/databus_kafka/common/net/http/blademaster/tests"
 )
@@ -220,9 +220,9 @@ func ExampleContext_BindWith() {
 
 func ExampleEngine_Inject() {
 	v := verify.New(nil)
-	auth := auth.New(nil)
+	//auth := auth.New(nil)
 	engine := blademaster.Default()
-	engine.Inject("^/index", v.Verify, auth.User)
+	//engine.Inject("^/index", v.Verify, auth.User)
 	engine.POST("/index/hello", func(c *blademaster.Context) {
 		c.JSON("hello, world", nil)
 	})
