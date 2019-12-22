@@ -5,8 +5,6 @@ import (
 	"sync"
 	"testing"
 	"time"
-
-	"github.com/weikaishio/databus_kafka/example_svr/conf"
 )
 
 var (
@@ -14,7 +12,7 @@ var (
 	_testTopic = "test156"
 	_testAddr  = "59.110.27.156:8922"
 
-	_testConfig = &conf.Kafka{
+	_testConfig = &Kafka{
 		Cluster: _testGroup,
 		Brokers: []string{_testAddr},
 	}

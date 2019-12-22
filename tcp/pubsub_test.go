@@ -7,13 +7,13 @@ import (
 	"testing"
 	"time"
 
-	"github.com/weikaishio/databus_kafka/example_svr/conf"
+	//"github.com/weikaishio/databus_kafka/example_svr/conf"
 
 	. "github.com/smartystreets/goconvey/convey"
 )
 
 var (
-	pubCfg = &conf.Kafka{
+	pubCfg = &Kafka{
 		Cluster: "test_topic",
 		Brokers: []string{"59.110.27.156:8922"},
 	}
