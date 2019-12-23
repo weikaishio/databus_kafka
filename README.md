@@ -49,15 +49,44 @@ INSERT INTO `auth` (`id`,`app_id`,`group_name`,`operation`,`topic`) VALUES (1,1,
 * 注意目录下的toml文件，需要配置上cluster、addr、mysql配置节不能少
 * 需要在example_svr/cmd目录运行go run main.go测试，否则运行需要带上-conf=配置文件地址
 
+### 用example_cli测试
+* example_cli目录有测试配置，配上认证数据即可，需要在example_cli目录运行go run main.go测试，否则运行需要带上-conf=配置文件地址
+* 运行后会创建生产者，并且发布一个消息；然后创建消费者并且一直消费
+
 ### 可以用redis-cli测试
 * 连接(比如在本地运行) e.g. redis-cli -h 127.0.0.1 -p 6205
 * 用生产者身份认证 auth命令 e.g. auth app_key1:app_secret1@group_name1/topic=test156&role=pub
 * 测试连通性：ping命令
-* 生产消息：set命令 e.g. set x "xx"  注：第一个参数x是key,(kafka多partition比较有用)，用引号的原因是json反序列化所用
+* 生产消息：set命令 e.g. set x "xx"  注：第一个参数x是key,(kafka多partition时非常有用)，用引号的原因是json反序列化所用
 * 用消费者身份认证：auth命令 e.g. app_key1:app_secret1@group_name1/topic=test156&role=sub
 * 消费消息 mget命令 e.g. mget pb  注：如果没有消息会block一段时间，pb意思是返回protobuf序列化的数据
 * 消费者执行set命令则是提交offset e.g. set 1 1 表示针对partion=1的设置offset=1
 
-### 用example_cli测试
-* example_cli目录有测试配置，配上认证数据即可，需要在example_cli目录运行go run main.go测试，否则运行需要带上-conf=配置文件地址
-* 运行后会创建生产者，并且发布一个消息；然后创建消费者并且一直消费
+#### 附：redis 协议说明
+Redis服务器与客户端通过RESP（REdis Serialization Protocol）协议通信。RESP协议支持的数据类型：
+* Simple String第一个字节以+开头，随后紧跟内容字符串（不能包含CR LF），最后以CRLF结束。很多Redis命令执行成功时会返回"OK"，"OK"就是一个Simple String：
+"+OK\\r\\n"
+
+* Error的结构与Simple String很像，但是第一个字节以-开头：
+"-ERR unknown command 'foobar'"
+
+* -符号后的第一个单词代表错误类型，ERR代表一般错误，WRONGTYPE代表在某种数据结构上执行了不支持的操作。
+
+* Integer第一个字节以:开头，随后紧跟数字，以CRLF结束：
+":1000\\r\\n"
+很多Redis命令会返回Integer,例如INCR LLEN等。
+
+* Bulk String是一种二进制安全的字符串结构，整个结构包含两部分。第一部分以$开头，后面紧跟字符串的字节长度，CRLF结尾。第二部分是真正的字符串内容，CRLF结尾，最大长度限制为512MB。一个Bulk String结构的"Hello World!"是：
+"$12\\r\\nHello World!\\r\\n"
+
+* 空字符串是：
+"$0\\r\\n\\r\\n"  
+
+* nil是：
+"$-1\\r\\n"
+
+* Array也可以看成由两部分组成，第一部分以*开头，后面紧跟一个数字代表Array的长度，以CRLF结束。第二部分是每个元素的具体值，可能是Integer，可能是Bulk String。Array结构的["hello", "world"]是：
+"*2\\r\\n$5\\r\\nhello\\r\\n$5\\r\\nworld\\r\\n"
+
+* 空Array：
+"*-1\\r\\n" 

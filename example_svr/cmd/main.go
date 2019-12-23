@@ -10,6 +10,7 @@ import (
 	"github.com/weikaishio/databus_kafka/common/log_b"
 	"github.com/weikaishio/databus_kafka/example_svr/conf"
 	"github.com/weikaishio/databus_kafka/auth_service"
+	"github.com/weikaishio/databus_kafka/http"
 	"github.com/weikaishio/databus_kafka/tcp"
 )
 /*
@@ -59,7 +60,7 @@ func main() {
 	log.Info("databus start")
 	// service init
 	svc := auth_service.New(conf.Conf.MySQL)
-	//http.Init(conf.Conf, svc)
+	http.Init(conf.Conf, svc)
 	tcp.Init(conf.Conf.Addr, conf.Conf.Clusters, svc)
 	// init signal
 	c := make(chan os.Signal, 1)

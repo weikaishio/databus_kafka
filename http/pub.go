@@ -7,7 +7,6 @@ import (
 
 	"github.com/weikaishio/databus_kafka/common/log_b"
 	bm "github.com/weikaishio/databus_kafka/common/net/http/blademaster"
-	"github.com/weikaishio/databus_kafka/example_svr/conf"
 	"github.com/weikaishio/databus_kafka/auth_service/dsn"
 	"github.com/weikaishio/databus_kafka/tcp"
 )
@@ -113,7 +112,7 @@ func pub(c *bm.Context) {
 	c.Writer.Write(rsp)
 }
 
-func pubRecords(group, topic, color string, cfg *conf.Kafka, records []*Record) (offsets []*OffsetMsg, err error) {
+func pubRecords(group, topic, color string, cfg *tcp.Kafka, records []*Record) (offsets []*OffsetMsg, err error) {
 	p, err := tcp.NewPub(nil, group, topic, color, cfg)
 	if err != nil {
 		return

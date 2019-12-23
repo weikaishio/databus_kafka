@@ -3,7 +3,6 @@ package http
 import (
 	"github.com/weikaishio/databus_kafka/common/log_b"
 	bm "github.com/weikaishio/databus_kafka/common/net/http/blademaster"
-	"github.com/weikaishio/databus_kafka/example_svr/conf"
 	"github.com/weikaishio/databus_kafka/auth_service"
 	"github.com/weikaishio/databus_kafka/tcp"
 )
@@ -13,10 +12,10 @@ var (
 )
 
 // Init init https
-func Init(c *conf.Config, s *auth_service.Service) {
+func Init(conf *bm.ServerConfig, s *auth_service.Service) {
 	svc = s
 	// router
-	router := bm.DefaultServer(c.HTTPServer)
+	router := bm.DefaultServer(conf)
 	initRouter(router)
 	// init internal server
 	if err := router.Start(); err != nil {
