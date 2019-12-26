@@ -3,6 +3,7 @@
 version = "0.1.0"
 
 addr = "0.0.0.0:6205"
+authType = 1
 
 [clusters]
 [clusters.cluster1]
@@ -16,6 +17,20 @@ dir = "/data/log/databus"
 [httpServer]
 addr = "0.0.0.0:6206"
 timeout = "1s"
+
+[redis]
+addr="59.110.27.156:6379"
+password="testwashcar"
+dB=1
+dialTimeout="3s"
+readTimeout="5s"
+writeTimeout="3s"
+idleTimeout ="30s"
+idleCheckFrequency="15s"
+poolTimeout="30s"
+maxConnAge="30s"
+minIdleConns=5
+poolSize=20
 
 [mysql]
 addr = "59.110.27.156:3306"

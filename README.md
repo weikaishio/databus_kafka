@@ -6,8 +6,50 @@
 * 根据role是pub还是sub来执行生产或消费操作
 * 生产或消费 使用的redis协议中的set和mget命令
 
+## 时序图
+```sequence
+title:databus数据时序图
+
+participant producerBiz
+participant consumerBiz
+participant dataBus
+participant kafka
+
+producerBiz->dataBus:Auth
+dataBus-->>producerBiz:Auth Success
+Note over producerBiz:send Msg
+dataBus->kafka:produce Msg
+
+consumerBiz->dataBus:Auth
+dataBus-->>consumerBiz:Auth Success
+Note over consumerBiz:pull Msg
+dataBus->kafka:consume Msg
+```
+
 ## 环境
-### mysql(databus连接认证所用)，认证有进程内缓存，每分钟拉数据库数据更新一次，最多一分钟脏数据
+### 认证 可选redis或者mysql
+#### redis(databus连接认证所用) 使用redis_orm
+* redis 建表所用模型（请见 https://github.com/weikaishio/redis_orm_workbench 建表和手动录入都可以）
+```go
+type AuthTb struct {
+	Id         int64  `redis_orm:"pk autoincr comment 'ID'"`
+	AppId      int32  `redis_orm:"dft '' comment 'AppId'"`
+	Group      string `redis_orm:"index dft '' comment '组名'"`
+	Operation  int8   `redis_orm:"dft '0' comment '操作类型'"`
+	Topic      string `redis_orm:"dft '' comment '主题名'"`
+	CreatedAt  int64  `redis_orm:"created_at comment '创建时间'"`
+	UpdatedAt  int64  `redis_orm:"updated_at comment '更新时间'"`
+}
+type AppTb struct {
+	Id        int64  `redis_orm:"pk autoincr comment 'ID'"`
+	AppKey    string `redis_orm:"dft '' comment 'key'"`
+	AppSecret string `redis_orm:"dft '' comment 'secret'"`
+	Cluster   string `redis_orm:"dft '' comment '集群名'"`
+	CreatedAt int64  `redis_orm:"created_at comment '创建时间'"`
+	UpdatedAt int64  `redis_orm:"updated_at comment '更新时间'"`
+}
+```
+#### mysql(databus连接认证所用)，认证有进程内缓存，每分钟拉数据库数据更新一次，最多一分钟脏数据
 * mysql 建表
 ```sql
 create database databus_db;
@@ -46,7 +88,7 @@ INSERT INTO `auth` (`id`,`app_id`,`group_name`,`operation`,`topic`) VALUES (1,1,
 
 ## 使用
 ### 启动 example_svr/cmd 服务
-* 注意目录下的toml文件，需要配置上cluster、addr、mysql配置节不能少
+* 注意目录下的toml文件，需要配置上cluster、addr、mysql(or redis)配置节不能少
 * 需要在example_svr/cmd目录运行go run main.go测试，否则运行需要带上-conf=配置文件地址
 
 ### 用example_cli测试

@@ -1,4 +1,4 @@
-package dao
+package db_store
 
 import (
 	"context"

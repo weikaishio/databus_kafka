@@ -34,6 +34,24 @@ type Auth struct {
 	Cluster   string
 }
 
+type AuthTb struct {
+	Id         int64  `redis_orm:"pk autoincr comment 'ID'"`
+	AppId      int32  `redis_orm:"dft '' comment 'AppId'"`
+	Group      string `redis_orm:"index dft '' comment '组名'"`
+	Operation  int8   `redis_orm:"dft '0' comment '操作类型'"`
+	Topic      string `redis_orm:"dft '' comment '主题名'"`
+	CreatedAt  int64  `redis_orm:"created_at comment '创建时间'"`
+	UpdatedAt  int64  `redis_orm:"updated_at comment '更新时间'"`
+}
+type AppTb struct {
+	Id        int64  `redis_orm:"pk autoincr comment 'ID'"`
+	AppKey    string `redis_orm:"dft '' comment 'key'"`
+	AppSecret string `redis_orm:"dft '' comment 'secret'"`
+	Cluster   string `redis_orm:"dft '' comment '集群名'"`
+	CreatedAt int64  `redis_orm:"created_at comment '创建时间'"`
+	UpdatedAt int64  `redis_orm:"updated_at comment '更新时间'"`
+}
+
 // CanPub judge producer auth
 func (a *Auth) CanPub() bool {
 	return a.Operation&bit2 == bit2

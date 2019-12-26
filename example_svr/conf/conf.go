@@ -3,6 +3,8 @@ package conf
 import (
 	"errors"
 	"flag"
+
+	"github.com/weikaishio/databus_kafka/auth_service/store"
 	"github.com/weikaishio/databus_kafka/common/database/sql"
 	"github.com/weikaishio/databus_kafka/tcp"
 
@@ -30,10 +32,11 @@ type Config struct {
 	Log *log.Config
 	// http
 	HTTPServer *bm.ServerConfig
-	// mysql
-	MySQL *sql.Config
-}
 
+	AuthType int //0:mysql 1:redis
+	MySQL *sql.Config
+	Redis *store.Options
+}
 
 func init() {
 	flag.StringVar(&confPath, "conf", "./databus-test.toml", "config path")
