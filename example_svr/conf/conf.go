@@ -39,7 +39,7 @@ type Config struct {
 }
 
 func init() {
-	flag.StringVar(&confPath, "conf", "./databus-test.toml", "config path")
+	flag.StringVar(&confPath, "conf", "./databus.toml", "config path")
 }
 
 //Init int config
